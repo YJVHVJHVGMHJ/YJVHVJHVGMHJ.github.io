@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RISLSTR - Fear of God</title>
+    <style>
+        /* Базовые стили и сброс */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Шапка сайта */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin: 0 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        .nav-menu li a:hover {
+            opacity: 0.7;
+        }
+        
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-icons div {
+            margin-left: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Герой секция */
+        .hero {
+            height: 80vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: #1a1a1a;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #333;
+            transform: translateY(-3px);
+        }
+        
+        /* Коллекции */
+        .section-title {
+            text-align: center;
+            padding: 4rem 0 2rem;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .collections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 5% 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .collection-item {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .collection-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .collection-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .collection-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: #fff;
+        }
+        
+        .collection-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Популярные товары */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 5% 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-image {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .add-to-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .add-to-cart:hover {
+            background: #333;
+        }
+        
+        /* О бренде */
+        .about {
+            padding: 5rem 5%;
+            background: #1a1a1a;
+            color: #fff;
+        }
+        
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            height: 500px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .about-text h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        /* Подписка */
+        .newsletter {
+            padding: 5rem 5%;
+            text-align: center;
+            background: #f2f2f2;
+        }
+        
+        .newsletter h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .subscribe-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .subscribe-form input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        
+        .subscribe-form button {
+            padding: 1rem 2rem;
+            background: #1a1a1a;
+            color: #fff;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        
+        /* Футер */
+        footer {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 4rem 5% 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a:hover {
+            opacity: 0.7;
+        }
+        
+        .social-icons {
+            display: flex;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons div {
+            margin-right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .social-icons div:hover {
+            background: #555;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .about-image {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 1rem 5%;
+            }
+            
+            .nav-menu {
+                margin: 1.5rem 0;
+            }
+            
+            .nav-menu li {
+                margin: 0 0.8rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subscribe-form {
+                flex-direction: column;
+            }
+            
+            .subscribe-form input {
+                margin-bottom: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-menu li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка сайта -->
+    <header>
+        <div class="header-container">
+            <div class="logo">RISLSTR</div>
+            <ul class="nav-menu">
+                <li><a href="#">Главная</a></li>
+                <li><a href="#">Коллекции</a></li>
+                <li><a href="#">Мужское</a></li>
+                <li><a href="#">Женское</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+            <div class="header-icons">
+                <div class="search-icon">🔍</div>
+                <div class="user-icon">👤</div>
+                <div class="cart-icon">🛒</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Герой секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>FEAR OF GOD</h1>
+            <p>Эксклюзивные коллекции от бренда премиум-класса</p>
+            <a href="#" class="btn">Смотреть коллекцию</a>
+        </div>
+    </section>
+
+    <!-- Коллекции -->
+    <h2 class="section-title">Коллекции</h2>
+    <div class="collections">
+        <div class="collection-item">
+            <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" alt="Essentials Collection">
+            <div class="collection-info">
+                <h3>Essentials</h3>
+                <p>Базовая коллекция</p>
+            </div>
+        </div>
+        <div class="collection-item">
+            <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" alt="Main Collection">
+            <div class="collection-info">
+                <h3>Main Line</h3>
+                <p>Главная коллекция</p>
+            </div>
+        </div>
+        <div class="collection-item">
+            <img src="https://images.unsplash.com/photo-1588850561407-5d35a4d620cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80" alt="Athletics Collection">
+            <div class="collection-info">
+                <h3>Athletics</h3>
+                <p>Спортивная линия</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Популярные товары -->
+    <h2 class="section-title">Популярные товары</h2>
+    <div class="products">
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Футболка Essentials">
+            </div>
+            <div class="product-info">
+                <h3>Футболка Essentials</h3>
+                <p class="product-price">12 990 ₽</p>
+                <button class="add-to-cart">В корзину</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1588117305388-c2631a279f82?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Худи Seventh Collection">
+            </div>
+            <div class="product-info">
+                <h3>Худи Seventh Collection</h3>
+                <p class="product-price">45 990 ₽</p>
+                <button class="add-to-cart">В корзину</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Кроссовки California">
+            </div>
+            <div class="product-info">
+                <h3>Кроссовки California</h3>
+                <p class="product-price">62 990 ₽</p>
+                <button class="add-to-cart">В корзину</button>
+            </div>
+        </div>
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://images.unsplash.com/photo-1588175996413-f5e7a854fd26?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Брюки Relaxed Fit">
+            </div>
+            <div class="product-info">
+                <h3>Брюки Relaxed Fit</h3>
+                <p class="product-price">38 990 ₽</p>
+                <button class="add-to-cart">В корзину</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- О бренде -->
+    <section class="about">
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1593030103066-0093718efeb9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="О бренде Fear of God">
+            </div>
+            <div class="about-text">
+                <h2>О бренде Fear of God</h2>
+                <p>Fear of God был основан Джерри Лоренцо в 2013 году с целью создания вневременных изделий, которые отражают его взгляд на современную моду.</p>
+                <p>Бренд сочетает в себе элементы уличной одежды и высокой моды, создавая уникальные силуэты и акцентируя внимание на качестве материалов и деталях.</p>
+                <a href="#" class="btn">Узнать больше</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подписка -->
+    <section class="newsletter">
+        <h2>Подпишитесь на рассылку</h2>
+        <p>Будьте в курсе новых поступлений, эксклюзивных предложений и специальных событий</p>
+        <form class="subscribe-form">
+            <input type="email" placeholder="Ваш email" required>
+            <button type="submit">Подписаться</button>
+        </form>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Магазин</h3>
+                <ul>
+                    <li><a href="#">Мужское</a></li>
+                    <li><a href="#">Женское</a></li>
+                    <li><a href="#">Новая коллекция</a></li>
+                    <li><a href="#">Распродажа</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Информация</h3>
+                <ul>
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Доставка и возврат</a></li>
+                    <li><a href="#">Условия использования</a></li>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Контакты</h3>
+                <ul>
+                    <li>Москва, ул. Арбат, 15</li>
+                    <li>+7 (495) 123-45-67</li>
+                    <li>info@rislstr.ru</li>
+                </ul>
+                <div class="social-icons">
+                    <div>📱</div>
+                    <div>💬</div>
+                    <div>📸</div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2023 RISLSTR. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Простой JavaScript для функциональности корзины
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const product = this.closest('.product-card');
+                    const productName = product.querySelector('h3').textContent;
+                    const productPrice = product.querySelector('.product-price').textContent;
+                    
+                    alert(`Товар добавлен в корзину: ${productName} - ${productPrice}`);
+                    // Здесь обычно будет код для добавления товара в корзину
+                });
+            });
+            
+            // Обработка формы подписки
+            const subscribeForm = document.querySelector('.subscribe-form');
+            subscribeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                alert(`Спасибо за подписку! На адрес ${email} будут приходить наши новости.`);
+                this.reset();
+            });
+        });
+    </script>
+</body>
+</html>
