@@ -432,9 +432,63 @@
                 font-size: 1.8rem;
             }
         }
+              .user-icon img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #1a1a1a;
+        }
     </style>
 </head>
-<body>
+<body>  <!-- Модуль инициализации Firebase и авторизации GitHub -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-analytics.js";
+      import { getAuth, signInWithPopup, GithubAuthProvider } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+
+      // Конфигурация вашего проекта "projekt-4336f"
+      const firebaseConfig = {
+        apiKey: "AIzaSyBNkUQiXNA6MGbxcvL8RhbOiX_bms-RcDo",
+        authDomain: "projekt-4336f.firebaseapp.com",
+        projectId: "projekt-4336f",
+        storageBucket: "projekt-4336f.firebasestorage.app",
+        messagingSenderId: "714759409711",
+        appId: "1:714759409711:web:7b3715cd7977d0e310b6da",
+        measurementId: "G-QRQQ1BECNV"
+      };
+
+      // Инициализируем сервисы
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const auth = getAuth(app);
+      const provider = new GithubAuthProvider();
+
+      // Ожидаем загрузку элементов интерфейса
+      document.addEventListener('DOMContentLoaded', () => {
+        const userIcon = document.querySelector('.user-icon');
+        
+        if (userIcon) {
+          userIcon.addEventListener('click', () => {
+            // Запускаем окно входа [1]
+            signInWithPopup(auth, provider)
+              .then((result) => {
+                const user = result.user;
+                alert(`Добро пожаловать, ${user.displayName || 'пользователь'}!`);
+                
+                // Заменяем иконку 👤 на фото профиля из GitHub
+                if (user.photoURL) {
+                  userIcon.innerHTML = `<img src="${user.photoURL}" alt="${user.displayName}">`;
+                }
+              })
+              .catch((error) => {
+                console.error("Ошибка авторизации:", error);
+                alert("Ошибка при входе через GitHub.");
+              });
+          });
+        }
+      });
+    </script>
     <!-- Шапка сайта -->
     <header>
         <div class="header-container">
